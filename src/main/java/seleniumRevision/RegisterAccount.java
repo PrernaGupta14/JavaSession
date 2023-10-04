@@ -25,7 +25,7 @@ public class RegisterAccount {
 
 		elementUtil.doSendKeys(fName, "Prerna");
 		elementUtil.doSendKeys(lName, "Gupta");
-		elementUtil.doSendKeys(eMail, "rshi@gmail.com");
+		elementUtil.doSendKeys(eMail, "qa@gmail.com");
 		elementUtil.doSendKeys(tele, "1234567890");
 		elementUtil.doSendKeys(pwd, "Alpha1234");
 		elementUtil.doSendKeys(Cpwd, "Alpha1234");

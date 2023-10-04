@@ -17,12 +17,19 @@ public class ElementUtil {
 	// Default value of driver is pointing to NULL so make it private for unnecssary
 	// access in other class
 	private WebDriver driver;
+	private Actions actions;
 
 	public ElementUtil(WebDriver driver) {
 		this.driver = driver;
+		actions = new Actions(driver);
 	}
 
 	// *****************************Element Methods***********************
+
+	public WebElement getElementLinkText(String value) {
+		return driver.findElement(By.linkText(value));
+	}
+
 	public void doSendKeys(By locator, String value) {
 		if (value == null) {
 			throw new BrowserException("ValueCanNotBeNull");
@@ -227,50 +234,56 @@ public class ElementUtil {
 
 	// ********************Actions Class Utils*****************************
 
+	
+	public void doActionsClick(By locator)
+	{
+		actions.click(getElement(locator)).perform();
+	}
+	
+	public void doActionsSendKeys(By locator, String value)
+	{
+		actions.sendKeys(getElement(locator), value).perform();
+	}
+	
+	
 	public void selectRightClickOption(By contextLocator, String optionName) {
-		Actions actions = new Actions(driver);
 		actions.contextClick(getElement(contextLocator)).perform();
-		By click_option= By.xpath("//*[text()='"+optionName+"']");
-		getElement(click_option).click();			
+		By click_option = By.xpath("//*[text()='" + optionName + "']");
+		getElement(click_option).click();
 	}
 
-
-	public void twoLevelMenuHandling(By Parentlocator, By Childlocator) throws InterruptedException {
-		Actions actions = new Actions(driver);
+	/**
+	 * this method will handle the menu upto two levels
+	 */
+	public void multiLevelMenuHandling(By Parentlocator, By Childlocator) throws InterruptedException {
 		actions.moveToElement(getElement(Parentlocator)).perform();
 		Thread.sleep(4000);
 		getElement(Childlocator).click();
 	}
+
+	/**
+	 * overloaded this method and will handle the menu upto three levels
+	 */
+	public void multiLevelMenuHandling(By level1, String level2, String level3) throws InterruptedException {
+		actions.moveToElement(getElement(level1)).perform();
+		Thread.sleep(1500);
+		actions.moveToElement(getElementLinkText(level2)).perform();
+		Thread.sleep(1500);
+		getElementLinkText(level3).click();
 	}
 
+	/**
+	 * overloaded this method and will handle the menu upto four levels
+	 */
+	public void multiLevelMenuHandling(By level1, String level2, String level3, String level4)
+			throws InterruptedException {
+		actions.moveToElement(getElement(level1)).perform();
+		Thread.sleep(1500);
+		actions.moveToElement(getElementLinkText(level2)).perform();
+		Thread.sleep(1500);
+		actions.moveToElement(getElementLinkText(level3)).perform();
+		Thread.sleep(1500);
+		getElementLinkText(level4).click();
+	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

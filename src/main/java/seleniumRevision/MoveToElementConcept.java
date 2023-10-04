@@ -35,7 +35,7 @@ public class MoveToElementConcept {
 		//driver.findElement(childBy).click();
 		
 		ElementUtil eUtil = new ElementUtil(driver);
-		eUtil.twoLevelMenuHandling(parentBy, childBy);	
+		eUtil.multiLevelMenuHandling(parentBy, childBy);	
 		}
 
 }
